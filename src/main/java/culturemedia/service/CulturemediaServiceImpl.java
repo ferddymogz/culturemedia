@@ -1,13 +1,14 @@
-package culturemedia.service.impl;
+package culturemedia.service;
 
 import culturemedia.model.Video;
 import culturemedia.model.View;
 import culturemedia.repository.VideoRepository;
 import culturemedia.repository.ViewsRepository;
+import culturemedia.service.impl.CulturemediaService;
 
 import java.util.List;
 
-public class CulturemediaServiceImpl implements CulturemediaService{
+public class CulturemediaServiceImpl implements CulturemediaService {
 
     private VideoRepository videoRepository;
     private ViewsRepository viewsRepository;
