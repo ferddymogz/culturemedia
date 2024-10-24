@@ -2,6 +2,7 @@ package culturemedia.repository;
 
 import java.util.List;
 
+import culturemedia.exception.VideoNotFoundException;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -34,7 +35,7 @@ class VideoRepositoryTest {
     }
 
     @Test
-    void when_FindAll_all_videos_should_be_returned_successfully() {
+    void when_FindAll_all_videos_should_be_returned_successfully() throws VideoNotFoundException {
         List<Video> videos = videoRepository.findAll( );
         assertEquals(6, videos.size());
     }
@@ -54,7 +55,7 @@ class VideoRepositoryTest {
     @Test
     void when_FindByTitle_does_not_match_any_video_an_empty_list_should_be_returned_successfully() {
         List<Video> videos = videoRepository.find( "Gladiator" );
-        assertArrayEquals(new Video[]{}, videos.toArray());
+        assertTrue(videos.isEmpty());
     }
 
     @Test
