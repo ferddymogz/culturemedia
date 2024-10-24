@@ -61,7 +61,7 @@ class VideoRepositoryTest {
     @Test
     void when_FindByDuration_does_not_match_any_video_an_empty_list_should_be_returned_successfully() {
         List<Video> videos = videoRepository.find( 6.0, 7.5 );
-        assertArrayEquals(new Video[]{}, videos.toArray());
+        assertTrue(videos.isEmpty());
     }
 
 }
