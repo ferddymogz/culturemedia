@@ -4,7 +4,7 @@ import culturemedia.exception.VideoNotFoundException;
 import culturemedia.model.Video;
 import culturemedia.repository.impl.VideoRepositoryImpl;
 import culturemedia.repository.impl.ViewsRepositoryImpl;
-import culturemedia.service.impl.CulturemediaService;
+import culturemedia.service.impl.CulturemediaServiceImpl;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -48,6 +48,34 @@ class CulturemediaServiceImplTest {
     @Test
     void when_FindAll_does_not_find_any_video_an_VideoNotFoundException_should_be_thrown_successfully() throws VideoNotFoundException {
         VideoNotFoundException videoNotFoundException = assertThrows(VideoNotFoundException.class, () -> culturemediaService.findAll());
+        assertEquals("Video not found", videoNotFoundException.getMessage());
+    }
+
+    @Test
+    void when_FindByTitle_only_videos_which_contains_the_word_in_the_title_should_be_returned_successfully() throws VideoNotFoundException {
+        saveVideos();
+        List<Video> videos = culturemediaService.find( "Clic" );
+        assertEquals(2, videos.size());
+    }
+
+    @Test
+    void when_FindByTitle_does_not_find_any_video_an_VideoNotFoundException_should_be_thrown_successfully() throws VideoNotFoundException {
+        saveVideos();
+        VideoNotFoundException videoNotFoundException = assertThrows(VideoNotFoundException.class, () -> culturemediaService.find("Gladiator"));
+        assertEquals("Video not found", videoNotFoundException.getMessage());
+    }
+
+    @Test
+    void when_FindByDuration_only_videos_between_the_range_should_be_returned_successfully() throws VideoNotFoundException {
+        saveVideos();
+        List<Video> videos = culturemediaService.find( 4.5, 5.5 );
+        assertEquals(3, videos.size());
+    }
+
+    @Test
+    void when_FindByDuration_does_not_match_any_video_an_VideoNotFoundException_should_be_thrown_successfully() throws VideoNotFoundException {
+        saveVideos();
+        VideoNotFoundException videoNotFoundException = assertThrows(VideoNotFoundException.class, () -> culturemediaService.find(6.5, 7.5));
         assertEquals("Video not found", videoNotFoundException.getMessage());
     }
 
