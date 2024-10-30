@@ -1,5 +1,6 @@
 package culturemedia.service.impl;
 
+import culturemedia.exception.DurationNotValidException;
 import culturemedia.exception.VideoNotFoundException;
 import culturemedia.model.Video;
 import culturemedia.model.View;
@@ -31,7 +32,8 @@ public class CulturemediaServiceImpl implements CulturemediaService {
     }
 
     @Override
-    public Video save(Video video) {
+    public Video save(Video video) throws DurationNotValidException {
+        validateVideoDuration(video);
         videoRepository.save(video);
         return video;
     }
@@ -44,36 +46,29 @@ public class CulturemediaServiceImpl implements CulturemediaService {
 
     @Override
     public List<Video> find(String title) throws VideoNotFoundException {
-        List<Video> filteredVideos = new ArrayList<>();
-        for ( Video video : videoRepository.findAll() ) {
-            if(video.title().contains(title)){
-                if(filteredVideos.isEmpty()){
-                    filteredVideos = new ArrayList<Video>();
-                }
-                filteredVideos.add(video);
-            }
-        }
+        List<Video> videos = videoRepository.find(title);
 
-        if (filteredVideos.isEmpty()) {
+        if (videos.isEmpty()) {
             throw new VideoNotFoundException();
         }else {
-            return filteredVideos;
+            return videos;
         }
     }
 
     @Override
     public List<Video> find(Double fromDuration, Double toDuration) throws VideoNotFoundException {
-        List<Video> filteredVideos = new ArrayList<Video>();
-        for ( Video video : videoRepository.findAll() ) {
-            if(video.duration() >= fromDuration && video.duration() <= toDuration){
-                filteredVideos.add(video);
-            }
-        }
+        List<Video> videos = videoRepository.find(fromDuration, toDuration);
 
-        if(filteredVideos.isEmpty()){
+        if(videos.isEmpty()){
             throw new VideoNotFoundException();
         }else {
-            return filteredVideos;
+            return videos;
+        }
+    }
+
+    private static void validateVideoDuration(Video video) throws DurationNotValidException {
+        if(video.duration() <= 0){
+            throw new DurationNotValidException(video.title(), video.duration());
         }
     }
 }
