@@ -31,19 +31,6 @@ public class CultureMediaServiceImpl implements CultureMediaService {
     }
 
     @Override
-    public Video save(Video video) throws DurationNotValidException {
-        validateVideoDuration(video);
-        videoRepository.save(video);
-        return video;
-    }
-
-    @Override
-    public View save(View view) {
-        viewsRepository.save(view);
-        return view;
-    }
-
-    @Override
     public List<Video> find(String title) throws VideoNotFoundException {
         List<Video> videos = videoRepository.find(title);
 
@@ -63,6 +50,19 @@ public class CultureMediaServiceImpl implements CultureMediaService {
         }else {
             return videos;
         }
+    }
+
+    @Override
+    public Video save(Video video) throws DurationNotValidException {
+        validateVideoDuration(video);
+        videoRepository.save(video);
+        return video;
+    }
+
+    @Override
+    public View save(View view) {
+        viewsRepository.save(view);
+        return view;
     }
 
     private static void validateVideoDuration(Video video) throws DurationNotValidException {

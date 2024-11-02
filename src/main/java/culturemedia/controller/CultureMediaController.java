@@ -2,6 +2,7 @@ package culturemedia.controller;
 
 import java.util.List;
 
+import culturemedia.exception.DurationNotValidException;
 import culturemedia.exception.VideoNotFoundException;
 import culturemedia.model.Video;
 import culturemedia.service.CultureMediaService;
@@ -16,6 +17,10 @@ public class CultureMediaController {
 
     public List<Video> findAllVideos() throws VideoNotFoundException {
         return cultureMediaService.findAll();
+    }
+
+    public Video save(Video video) throws DurationNotValidException {
+        return cultureMediaService.save(video);
     }
 
 
