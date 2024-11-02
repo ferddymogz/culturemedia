@@ -6,17 +6,16 @@ import culturemedia.model.Video;
 import culturemedia.model.View;
 import culturemedia.repository.VideoRepository;
 import culturemedia.repository.ViewsRepository;
-import culturemedia.service.CulturemediaService;
+import culturemedia.service.CultureMediaService;
 
-import java.util.ArrayList;
 import java.util.List;
 
-public class CulturemediaServiceImpl implements CulturemediaService {
+public class CultureMediaServiceImpl implements CultureMediaService {
 
     private VideoRepository videoRepository;
     private ViewsRepository viewsRepository;
 
-    public CulturemediaServiceImpl(VideoRepository videoRepository, ViewsRepository viewsRepository) {
+    public CultureMediaServiceImpl(VideoRepository videoRepository, ViewsRepository viewsRepository) {
         this.videoRepository = videoRepository;
         this.viewsRepository = viewsRepository;
     }

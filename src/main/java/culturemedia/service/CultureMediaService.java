@@ -7,7 +7,7 @@ import culturemedia.model.View;
 
 import java.util.List;
 
-public interface CulturemediaService {
+public interface CultureMediaService {
     List<Video> findAll() throws VideoNotFoundException;
     Video save(Video video) throws DurationNotValidException;
     View save(View view);
