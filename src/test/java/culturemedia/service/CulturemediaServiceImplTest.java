@@ -5,7 +5,7 @@ import culturemedia.exception.VideoNotFoundException;
 import culturemedia.model.Video;
 import culturemedia.repository.impl.VideoRepositoryImpl;
 import culturemedia.repository.impl.ViewsRepositoryImpl;
-import culturemedia.service.impl.CulturemediaServiceImpl;
+import culturemedia.service.impl.CultureMediaServiceImpl;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -15,11 +15,11 @@ import static org.junit.jupiter.api.Assertions.*;
 
 class CulturemediaServiceImplTest {
 
-    private CulturemediaService culturemediaService;
+    private CultureMediaService cultureMediaService;
 
     @BeforeEach
     void init() {
-        culturemediaService = new CulturemediaServiceImpl(new VideoRepositoryImpl(), new ViewsRepositoryImpl());
+        cultureMediaService = new CultureMediaServiceImpl(new VideoRepositoryImpl(), new ViewsRepositoryImpl());
     }
 
     void saveVideos() throws DurationNotValidException {
@@ -33,7 +33,7 @@ class CulturemediaServiceImplTest {
 
 
         for (Video video : videos) {
-            culturemediaService.save(video);
+            cultureMediaService.save(video);
         }
 
     }
@@ -42,39 +42,39 @@ class CulturemediaServiceImplTest {
     @Test
     void when_FindAll_all_videos_should_be_returned_successfully() throws VideoNotFoundException, DurationNotValidException {
         saveVideos();
-        List<Video> videos = culturemediaService.findAll();
+        List<Video> videos = cultureMediaService.findAll();
         assertEquals(6, videos.size());
     }
 
     @Test
     void when_FindAll_does_not_find_any_video_an_VideoNotFoundException_should_be_thrown_successfully() throws VideoNotFoundException {
-        assertThrows(VideoNotFoundException.class, () -> culturemediaService.findAll());
+        assertThrows(VideoNotFoundException.class, () -> cultureMediaService.findAll());
     }
 
     @Test
     void when_FindByTitle_only_videos_which_contains_the_word_in_the_title_should_be_returned_successfully() throws VideoNotFoundException, DurationNotValidException {
         saveVideos();
-        List<Video> videos = culturemediaService.find( "Clic" );
+        List<Video> videos = cultureMediaService.find( "Clic" );
         assertEquals(2, videos.size());
     }
 
     @Test
     void when_FindByTitle_does_not_find_any_video_an_VideoNotFoundException_should_be_thrown_successfully() throws VideoNotFoundException, DurationNotValidException {
         saveVideos();
-        assertThrows(VideoNotFoundException.class, () -> culturemediaService.find("Gladiator"));
+        assertThrows(VideoNotFoundException.class, () -> cultureMediaService.find("Gladiator"));
     }
 
     @Test
     void when_FindByDuration_only_videos_between_the_range_should_be_returned_successfully() throws VideoNotFoundException, DurationNotValidException {
         saveVideos();
-        List<Video> videos = culturemediaService.find( 4.5, 5.5 );
+        List<Video> videos = cultureMediaService.find( 4.5, 5.5 );
         assertEquals(3, videos.size());
     }
 
     @Test
     void when_FindByDuration_does_not_match_any_video_an_VideoNotFoundException_should_be_thrown_successfully() throws VideoNotFoundException, DurationNotValidException {
         saveVideos();
-        assertThrows(VideoNotFoundException.class, () -> culturemediaService.find(6.5, 7.5));
+        assertThrows(VideoNotFoundException.class, () -> cultureMediaService.find(6.5, 7.5));
     }
 
 
