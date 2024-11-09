@@ -55,14 +55,12 @@ public class CultureMediaServiceImpl implements CultureMediaService {
     @Override
     public Video save(Video video) throws DurationNotValidException {
         validateVideoDuration(video);
-        videoRepository.save(video);
-        return video;
+        return this.videoRepository.save(video);
     }
 
     @Override
     public View save(View view) {
-        viewsRepository.save(view);
-        return view;
+        return this.viewsRepository.save(view);
     }
 
     private static void validateVideoDuration(Video video) throws DurationNotValidException {
