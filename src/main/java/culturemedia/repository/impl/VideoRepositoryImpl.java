@@ -6,7 +6,9 @@ import culturemedia.exception.CultureMediaException;
 import culturemedia.exception.VideoNotFoundException;
 import culturemedia.model.Video;
 import culturemedia.repository.VideoRepository;
+import org.springframework.stereotype.Component;
 
+@Component
 public class VideoRepositoryImpl implements VideoRepository {
 
     private final List<Video> videos;
